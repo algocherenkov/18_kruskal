@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_SUITE(test_suite_main)
 
 BOOST_AUTO_TEST_CASE(Demukron_sort_and_Tarian_sort_test)
 {
-    std::vector<std::vector<std::pair<int, int>>> testGraph(7);
+    std::vector<std::vector<std::pair<int, int>>> testGraph;
     std::vector<std::pair<int, int>> temp;
     temp.emplace_back(1, 7);
     temp.emplace_back(3, 5);
@@ -62,17 +62,15 @@ BOOST_AUTO_TEST_CASE(Demukron_sort_and_Tarian_sort_test)
     testGraph.push_back(temp);
     temp.clear();
 
-    auto result = graphs::demukronSort(testGraph);
+    auto result = graphs::kruskalSkeleton(testGraph);
 
     BOOST_CHECK_MESSAGE(result.size() == 6, "wrong result size");
-    BOOST_CHECK_MESSAGE(result[0].size() == 2, "vertices were not included in the level 0");
-    BOOST_CHECK_MESSAGE(result[1].size() == 3, "vertices were not included in the level 1");
-    BOOST_CHECK_MESSAGE(result[2].size() == 3, "vertices were not included in the level 2");
-    BOOST_CHECK_MESSAGE(result[3].size() == 1, "vertices were not included in the level 3");
-    BOOST_CHECK_MESSAGE(result[4].size() == 4, "vertices were not included in the level 4");
-    BOOST_CHECK_MESSAGE(result[5].size() == 1, "vertices were not included in the level 5");
+    BOOST_CHECK_MESSAGE(result[0].w == 5, "wrong edge's weight");
+    BOOST_CHECK_MESSAGE(result[1].w == 5, "wrong edge's weight");
+    BOOST_CHECK_MESSAGE(result[2].w == 6, "wrong edge's weight");
+    BOOST_CHECK_MESSAGE(result[3].w == 7, "wrong edge's weight");
+    BOOST_CHECK_MESSAGE(result[4].w == 7, "wrong edge's weight");
+    BOOST_CHECK_MESSAGE(result[5].w == 9, "wrong edge's weight");
 
-    auto result2 = graphs::tarianSort(testGraph);
-    BOOST_CHECK_MESSAGE(result2.size() == testGraph.size(), "wrong result size");
 }
 BOOST_AUTO_TEST_SUITE_END()
